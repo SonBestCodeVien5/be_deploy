@@ -1,0 +1,92 @@
+@baseUrl = http://localhost:3000
+
+### ─────────────────────────────────────
+### Kiểm tra server
+### ─────────────────────────────────────
+GET {{baseUrl}}/
+
+### ─────────────────────────────────────
+### 1. Tạo user – Nguyen Van A
+### ─────────────────────────────────────
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Nguyen Van A",
+  "age": 25,
+  "email": "vana@example.com"
+}
+
+### ─────────────────────────────────────
+### 2. Tạo user – Tran Thi B
+### ─────────────────────────────────────
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Tran Thi B",
+  "age": 30,
+  "email": "thib@example.com"
+}
+
+### ─────────────────────────────────────
+### 3. Tạo user – Le Van C
+### ─────────────────────────────────────
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Le Van C",
+  "age": 22,
+  "email": "vanc@example.com"
+}
+
+### ─────────────────────────────────────
+### 4. Tạo user – Pham Thi D
+### ─────────────────────────────────────
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Pham Thi D",
+  "age": 28,
+  "email": "thid@example.com"
+}
+
+### ─────────────────────────────────────
+### 5. Tạo user – Hoang Van E
+### ─────────────────────────────────────
+POST {{baseUrl}}/api/users
+Content-Type: application/json
+
+{
+  "name": "Hoang Van E",
+  "age": 35,
+  "email": "vane@example.com"
+}
+
+### ─────────────────────────────────────
+### Lấy danh sách tất cả user (kiểm tra)
+### ─────────────────────────────────────
+GET {{baseUrl}}/api/users
+
+### ─────────────────────────────────────
+### Lấy chi tiết 1 user – thay ID bên dưới
+### ─────────────────────────────────────
+GET {{baseUrl}}/api/users/PASTE_ID_HERE
+
+### ─────────────────────────────────────
+### Cập nhật user – thay ID bên dưới
+### ─────────────────────────────────────
+PUT {{baseUrl}}/api/users/PASTE_ID_HERE
+Content-Type: application/json
+
+{
+  "name": "Nguyen Van A (updated)",
+  "age": 26
+}
+
+### ─────────────────────────────────────
+### Xóa user – thay ID bên dưới
+### ─────────────────────────────────────
+DELETE {{baseUrl}}/api/users/69faa6805e2a11123303d30e
