@@ -10,12 +10,20 @@ const port = process.env.PORT || 3000;
 // Middleware parse JSON body
 app.use(express.json());
 
-// Kết nối MongoDB
-mongoose
-    // MONGODB_URI = mongodb+srv://20235212:SonDepZai2005@cluster0.weontbl.mongodb.net/?appName=Cluster0
-  .connect(process.env.MONGODB_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.error('Could not connect to MongoDB', err));
+// Kết nối MongoDB trước khi mở server
+async function startServer() {
+  try {
+    await mongoose.connect(process.env.MONGODB_URI);
+    console.log('Connected to MongoDB');
+
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port}`);
+    });
+  } catch (err) {
+    console.error('Could not connect to MongoDB', err);
+    process.exit(1);
+  }
+}
 
 // Schema & Model
 const userSchema = new mongoose.Schema(
@@ -134,6 +142,4 @@ app.use((_req, res) => {
   fail(res, 'Route không tồn tại', 404);
 });
 
-app.listen(port, () => {
-  console.log(`Server is running on port ${port}`);
-});
+startServer();
