@@ -21,7 +21,10 @@ async function startServer() {
     });
   } catch (err) {
     console.error('Could not connect to MongoDB', err);
-    process.exit(1);
+
+    app.listen(port, () => {
+      console.log(`Server is running on port ${port} without MongoDB connection`);
+    });
   }
 }
 
