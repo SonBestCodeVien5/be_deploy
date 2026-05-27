@@ -1,4 +1,5 @@
 const express = require('express');
+const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
@@ -9,6 +10,7 @@ const port = process.env.PORT || 3000;
 
 // Middleware parse JSON body
 app.use(express.json());
+app.use(cors());
 
 let serverStarted = false;
 
