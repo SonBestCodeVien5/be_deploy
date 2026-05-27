@@ -10,21 +10,25 @@ const port = process.env.PORT || 3000;
 // Middleware parse JSON body
 app.use(express.json());
 
-// Kết nối MongoDB trước khi mở server
-async function startServer() {
+let serverStarted = false;
+
+function startHttpServer() {
+  if (serverStarted) return;
+
+  serverStarted = true;
+  app.listen(port, () => {
+    console.log(`Server is running on port ${port}`);
+  });
+}
+
+async function connectMongoWithRetry() {
   try {
     await mongoose.connect(process.env.MONGODB_URI);
     console.log('Connected to MongoDB');
-
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port}`);
-    });
+    startHttpServer();
   } catch (err) {
     console.error('Could not connect to MongoDB', err);
-
-    app.listen(port, () => {
-      console.log(`Server is running on port ${port} without MongoDB connection`);
-    });
+    setTimeout(connectMongoWithRetry, 5000);
   }
 }
 
@@ -145,4 +149,4 @@ app.use((_req, res) => {
   fail(res, 'Route không tồn tại', 404);
 });
 
-startServer();
+connectMongoWithRetry();
